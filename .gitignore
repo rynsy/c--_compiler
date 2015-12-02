@@ -1,0 +1,3 @@
+*.o
+*.s
+cmm2pstack
