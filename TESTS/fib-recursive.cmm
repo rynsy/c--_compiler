@@ -17,7 +17,7 @@ int main ()
 
   int i;
   i = 0;
-  while (i < 32) {
+  while (i < 13) {
     puts("Fib ");
     putn(i);
     puts("\t=");

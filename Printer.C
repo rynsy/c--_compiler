@@ -262,6 +262,7 @@ void PrintAbsyn::visitSIf(SIf* p)
   render('(');
   _i_ = 0; p->exp_->accept(this);
   render(')');
+  render("then");
   _i_ = 0; p->stm_->accept(this);
 
   if (oldi > 0) render(_R_PAREN);

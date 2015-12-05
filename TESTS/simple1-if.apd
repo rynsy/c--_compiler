@@ -1,0 +1,93 @@
+0001 Prog varlen:0 addr:4
+0004 Jmp to:62
+0006 I_Variable lev:0 disp:-1
+0009 I_Value
+0010 I_Constant value:51198
+0012 Swap
+0013 I_Assign  words:1
+0015 I_Constant value:51198
+0017 I_Value
+0018 I_Constant value:51198
+0020 I_Value
+0021 I_Value
+0022 I_Constant value:51198
+0024 Swap
+0025 I_Assign  words:1
+0027 I_Constant value:51198
+0029 I_Value
+0030 I_Constant value:51198
+0032 I_Value
+0033 Jr_if_False to:9
+0035 C_Write chars:1
+0037 I_Constant value:1
+0039 I_Add
+0040 Jr by:-30
+0042 EndPProc args:1
+0044 I_Variable lev:0 disp:-1
+0047 I_Read words:1
+0049 I_Assign  words:1
+0051 EndPProc args:0
+0053 I_Variable lev:0 disp:-1
+0056 I_Value
+0057 I_Write words:1
+0059 EndPProc args:1
+0061 EndProg
+0062 Call lev:0 addr:66
+0065 EndProg
+0066 Proc varlen:2 addr:69
+0069 I_Variable lev:0 disp:3
+0072 I_Constant value:51198
+0074 Swap
+0075 I_Assign  words:1
+0077 I_Constant value:51198
+0079 I_Value
+0080 I_Constant value:51198
+0082 I_Value
+0083 I_Constant value:2014
+0085 I_Assign  words:1
+0087 I_Value
+0088 Jr_if_True by:2
+0090 I_Variable lev:0 disp:4
+0093 I_Constant value:51198
+0095 Swap
+0096 I_Assign  words:1
+0098 I_Constant value:51198
+0100 I_Value
+0101 I_Constant value:51198
+0103 I_Value
+0104 I_Constant value:1
+0106 I_Assign  words:1
+0108 I_Value
+0109 Jr_if_True by:2
+0111 I_Variable lev:0 disp:4
+0114 I_Value
+0115 I_Constant value:2
+0117 I_Less
+0118 Jr_if_False to:30
+0120 I_Variable lev:0 disp:3
+0123 I_Constant value:51198
+0125 Swap
+0126 I_Assign  words:1
+0128 I_Constant value:51198
+0130 I_Value
+0131 I_Constant value:51198
+0133 I_Value
+0134 I_Variable lev:0 disp:3
+0137 I_Value
+0138 I_Variable lev:0 disp:4
+0141 I_Value
+0142 I_Add
+0143 I_Assign  words:1
+0145 I_Value
+0146 Jr_if_True by:2
+0148 I_Constant value:0
+0150 I_Variable lev:0 disp:3
+0153 I_Value
+0154 Call lev:1 addr:53
+0157 Jr_if_True by:2
+0159 I_Constant value:0
+0161 I_Variable lev:0 disp:-1
+0164 Swap
+0165 I_Assign  words:1
+0167 EndPProc args:0
+0169 EndPProc args:0

@@ -1,0 +1,15 @@
+int main () 
+{
+  int sum; 
+  int n;
+  int i;
+  sum = 0; 
+  n = 101;
+  i = 1;
+  while (i < 101) {
+    sum = sum + i;
+    i = i + 1;
+  }
+  putn(n);
+  return 0;
+}

@@ -1,0 +1,24 @@
+int million(int n)
+{
+  return n * 1000000;
+}
+
+int mx()
+{
+  return million(5);
+}
+
+int main () 
+{
+  int lo; 
+  int hi;
+  lo = 1;
+  hi = lo;
+
+  while (hi < mx()) {
+    putn(hi);
+    hi = lo + hi;
+    lo = hi - lo;
+  }
+  return 0;
+}

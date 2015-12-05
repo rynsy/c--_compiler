@@ -1,0 +1,14 @@
+int main(){
+
+int m;
+int n;
+m = 1;
+n = 3;
+while (n * 3 < 177154) {
+        n = n * 3;
+        m = m + 1;
+}
+putn(m);
+
+return 0;
+}

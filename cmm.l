@@ -41,7 +41,8 @@ IDENT [a-zA-Z0-9'_]
 <YYINITIAL>"if"      	 return _SYMB_12;
 <YYINITIAL>"int"      	 return _SYMB_13;
 <YYINITIAL>"return"      	 return _SYMB_14;
-<YYINITIAL>"while"      	 return _SYMB_15;
+<YYINITIAL>"then"      	 return _SYMB_15;
+<YYINITIAL>"while"      	 return _SYMB_16;
 
 <YYINITIAL>"//"[^\n]*\n  ++yy_mylinenumber ; 	 /* BNFC single-line comment */;
 <YYINITIAL>"/*"      	 BEGIN COMMENT;

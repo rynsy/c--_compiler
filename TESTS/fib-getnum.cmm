@@ -1,0 +1,23 @@
+int main ()
+{
+  int n;
+  puts("How many Fibonacci numbers do you wish (give an upper bound)\n");
+  puts("Up to n: =  \n");
+  n = getnum();
+  puts("Okey -- Up to n = ");
+  putn(n);
+  puts("\n");
+
+  int lo;
+  int hi;
+  lo = 1;
+  hi = lo;
+  putn(lo);
+  putn(hi);
+  while (hi < n) {
+    putn(hi);
+    hi = lo + hi;
+    lo = hi - lo;
+  }
+  return 0;
+}

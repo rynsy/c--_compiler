@@ -1,0 +1,6 @@
+int main () 
+{
+  int sum; 
+  sum = 2015;
+  return 0;
+}

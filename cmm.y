@@ -428,7 +428,8 @@ Type* pType(const char *str)
 %token _SYMB_12    //   if
 %token _SYMB_13    //   int
 %token _SYMB_14    //   return
-%token _SYMB_15    //   while
+%token _SYMB_15    //   then
+%token _SYMB_16    //   while
 
 %type <program_> Program
 %type <function_> Function
@@ -475,9 +476,9 @@ ListIdent : _IDENT_ {  $$ = new ListIdent() ; $$->push_back($1); YY_RESULT_ListI
 Stm : Decl _SYMB_5 {  $$ = new SDecl($1); YY_RESULT_Stm_= $$; } 
   | Exp _SYMB_5 {  $$ = new SExp($1); YY_RESULT_Stm_= $$; }
   | _SYMB_2 ListStm _SYMB_3 {  $$ = new SBlock($2); YY_RESULT_Stm_= $$; }
-  | _SYMB_15 _SYMB_0 Exp _SYMB_1 Stm {  $$ = new SWhile($3, $5); YY_RESULT_Stm_= $$; }
+  | _SYMB_16 _SYMB_0 Exp _SYMB_1 Stm {  $$ = new SWhile($3, $5); YY_RESULT_Stm_= $$; }
   | _SYMB_14 Exp _SYMB_5 {  $$ = new SReturn($2); YY_RESULT_Stm_= $$; }
-  | _SYMB_12 _SYMB_0 Exp _SYMB_1 Stm {  $$ = new SIf($3, $5); YY_RESULT_Stm_= $$; }
+  | _SYMB_12 _SYMB_0 Exp _SYMB_1 _SYMB_15 Stm {  $$ = new SIf($3, $6); YY_RESULT_Stm_= $$; }
 ;
 Exp : _IDENT_ _SYMB_6 Exp {  $$ = new EAss($1, $3); YY_RESULT_Exp_= $$; } 
   | Exp1 {  $$ = $1; YY_RESULT_Exp_= $$; }
