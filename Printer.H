@@ -46,6 +46,8 @@ void render(char* s);
   void visitSWhile(SWhile *p);
   void visitSReturn(SReturn *p);
   void visitSIf(SIf *p);
+  void visitSIfElse(SIfElse *p);
+  void visitSFor3(SFor3 *p);
   void visitExp(Exp *p); /* abstract class */
   void visitEAss(EAss *p);
   void visitELt(ELt *p);
@@ -151,6 +153,8 @@ class ShowAbsyn : public Visitor
   void visitSWhile(SWhile *p);
   void visitSReturn(SReturn *p);
   void visitSIf(SIf *p);
+  void visitSIfElse(SIfElse *p);
+  void visitSFor3(SFor3 *p);
   void visitExp(Exp *p); /* abstract class */
   void visitEAss(EAss *p);
   void visitELt(ELt *p);

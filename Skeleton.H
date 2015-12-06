@@ -23,6 +23,8 @@ public:
   void visitSWhile(SWhile* p);
   void visitSReturn(SReturn* p);
   void visitSIf(SIf* p);
+  void visitSIfElse(SIfElse* p);
+  void visitSFor3(SFor3* p);
   void visitEAss(EAss* p);
   void visitELt(ELt* p);
   void visitEAdd(EAdd* p);

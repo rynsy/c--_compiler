@@ -41,7 +41,7 @@
 # to make sure that the tests match the expected output.
 ################################################################
 
-testdir=${1:-TESTS441f15}
+testdir=${1:-TESTSrmli223}
 
 # Execute a particular test.  Should print the results of execution
 # to stdout, and any error messages from the compiler to stderrr.

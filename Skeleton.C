@@ -93,6 +93,27 @@ void Skeleton::visitSIf(SIf *sif)
 
 }
 
+void Skeleton::visitSIfElse(SIfElse *sifelse)
+{
+  /* Code For SIfElse Goes Here */
+
+  sifelse->exp_->accept(this);
+  sifelse->stm_1->accept(this);
+  sifelse->stm_2->accept(this);
+
+}
+
+void Skeleton::visitSFor3(SFor3 *sfor3)
+{
+  /* Code For SFor3 Goes Here */
+
+  sfor3->exp_1->accept(this);
+  sfor3->exp_2->accept(this);
+  sfor3->exp_3->accept(this);
+  sfor3->stm_->accept(this);
+
+}
+
 void Skeleton::visitEAss(EAss *eass)
 {
   /* Code For EAss Goes Here */

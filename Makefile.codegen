@@ -17,7 +17,7 @@ pstack/api: pstack/api.c
 	make -C pstack
 
 clean:
-	rm -f *.o compiler cmm.aux cmm.log cmm.pdf cmm.dvi cmm.ps cmm
+	rm -f *.o cmm2pstack cmm.aux cmm.log cmm.pdf cmm.dvi cmm.ps cmm
 	make -C pstack clean
 
 distclean: clean

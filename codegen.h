@@ -71,12 +71,13 @@ public:
 
     // Statements
     void visitSIf(SIf *p);
-    //void visitSIfElse(SIfElse *p);
+    void visitSIfElse(SIfElse *p);
     void visitSDecl(SDecl *p);
     void visitSExp(SExp *p);
     void visitSBlock(SBlock *p);
     void visitSWhile(SWhile *p);
     void visitSReturn(SReturn *p);
+    void visitSFor3(SFor3 *p);
 
     // Expressions
     void visitEAss(EAss *p);

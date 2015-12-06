@@ -1,0 +1,6 @@
+README
+
+An initial set of test for th final project cs441 Fall 2015
+
+To use the test, move test-cmm2pstack.sh one level up.
+Place api, apd, apm in a pstacj directry one level up.

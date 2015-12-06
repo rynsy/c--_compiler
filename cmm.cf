@@ -15,8 +15,9 @@ SExp.    Stm ::= Exp ";" ;
 SBlock.  Stm ::= "{" [Stm] "}" ;
 SWhile.  Stm ::= "while" "(" Exp ")" Stm ;
 SReturn. Stm ::= "return" Exp  ";" ;
-
-SIf.     Stm ::= "if" "(" Exp ")" "then" Stm ;
+SIf.     Stm ::= "if" "(" Exp ")" Stm ;
+SIfElse. Stm ::= "if" "(" Exp ")" Stm "else" Stm ;
+SFor3.   Stm ::= "for" "(" Exp ";" Exp ";" Exp ")" Stm ;
 
 EAss.    Exp  ::= Ident "=" Exp ;
 ELt.     Exp1 ::= Exp2 "<" Exp2 ;

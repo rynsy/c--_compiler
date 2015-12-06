@@ -89,11 +89,44 @@ void CodeGen::visitSIf(SIf *sif) //Written by RL, 12:00pm 12/1/2015
     code.at(patchloc) = code.pos() - (patchloc - 1);
 }
 
-/*void CodeGen::visitSIfElse(SIfElse *sifel)
+void CodeGen::visitSIfElse(SIfElse *sifel)
 {
+    sifel->exp_->accept(this);
+    code.add(I_JR_IF_FALSE);
+    code.add(0);
+    int patchloc = code.pos() - 1;
+
+    sifel->stm_1->accept(this);
+    code.at(patchloc) = code.pos() - (patchloc - 1);
+    
+    sifel->exp_->accept(this);
+    code.add(I_JR_IF_FALSE);
+    code.add(0);
+    patchloc = code.pos() - 1;
+
+    sifel->stm_2->accept(this);
+    code.at(patchloc) = code.pos() - (patchloc - 1);
+}
+
+void CodeGen::visitSFor3(SFor3 *sfor3)
+{
+    sfor3->exp_1->accept(this); //initialize
+    
+    int looploc = code.pos();
+    sfor3->exp_2->accept(this); //eval cond.
+    code.add(I_JR_IF_FALSE);
+    code.add(0);
+    int patchloc = code.pos() - 1;
+
+    sfor3->stm_->accept(this);
+    sfor3->exp_3->accept(this);
+
+    code.add(I_JR);
+    code.add(looploc - (code.pos() - 1));
+    code.at(patchloc) = code.pos() - (patchloc - 1);
 
 }
-*/
+
 void CodeGen::visitSDecl(SDecl *sdecl)
 {
     sdecl->decl_->accept(this); // visitDec

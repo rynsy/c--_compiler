@@ -79,7 +79,17 @@ void PstackCode::prolog(SymbolTable &fvsyms)
 	add(I_ENDPPROC);
 	add(1);
 
-	fvsyms.insert(Symbol("exit", TY_FUNC, pos()));
+	fvsyms.insert(Symbol("getnum", TY_FUNC, pos()));
+	add(I_VARIABLE);
+	add(0);
+	add(-1);
+	add(I_VALUE);
+	add(I_READ);
+	add(1);
+	add(I_ENDPPROC);
+	add(1);
+	
+        fvsyms.insert(Symbol("exit", TY_FUNC, pos()));
 	add(I_ENDPROG);
 
 	// Patch up the JMP to the beginning of the program proper
