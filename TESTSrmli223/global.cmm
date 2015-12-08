@@ -1,0 +1,15 @@
+int sum;
+int i;
+
+int main () 
+{
+  sum = 2014; 
+  i = 1;
+  if (i < 0) {
+    sum = sum + 1001;
+  } else {
+    sum = sum + i;
+  }
+  putn(sum);
+  return 0;
+}

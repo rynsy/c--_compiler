@@ -11,6 +11,7 @@
 void Skeleton::visitProgram(Program* t) {} //abstract class
 void Skeleton::visitFunction(Function* t) {} //abstract class
 void Skeleton::visitDecl(Decl* t) {} //abstract class
+void Skeleton::visitInit(Init* t) {} //abstract class
 void Skeleton::visitStm(Stm* t) {} //abstract class
 void Skeleton::visitExp(Exp* t) {} //abstract class
 void Skeleton::visitType(Type* t) {} //abstract class
@@ -43,11 +44,29 @@ void Skeleton::visitDec(Dec *dec)
 
 }
 
+void Skeleton::visitIni(Ini *ini)
+{
+  /* Code For Ini Goes Here */
+
+  ini->type_->accept(this);
+  visitIdent(ini->ident_);
+  ini->exp_->accept(this);
+
+}
+
 void Skeleton::visitSDecl(SDecl *sdecl)
 {
   /* Code For SDecl Goes Here */
 
   sdecl->decl_->accept(this);
+
+}
+
+void Skeleton::visitSInit(SInit *sinit)
+{
+  /* Code For SInit Goes Here */
+
+  sinit->init_->accept(this);
 
 }
 
@@ -103,14 +122,25 @@ void Skeleton::visitSIfElse(SIfElse *sifelse)
 
 }
 
-void Skeleton::visitSFor3(SFor3 *sfor3)
+void Skeleton::visitSFor(SFor *sfor)
 {
-  /* Code For SFor3 Goes Here */
+  /* Code For SFor Goes Here */
 
-  sfor3->exp_1->accept(this);
-  sfor3->exp_2->accept(this);
-  sfor3->exp_3->accept(this);
-  sfor3->stm_->accept(this);
+  sfor->exp_1->accept(this);
+  sfor->exp_2->accept(this);
+  sfor->exp_3->accept(this);
+  sfor->stm_->accept(this);
+
+}
+
+void Skeleton::visitSForIT(SForIT *sforit)
+{
+  /* Code For SForIT Goes Here */
+
+  sforit->init_->accept(this);
+  sforit->exp_1->accept(this);
+  sforit->exp_2->accept(this);
+  sforit->stm_->accept(this);
 
 }
 
@@ -129,6 +159,24 @@ void Skeleton::visitELt(ELt *elt)
 
   elt->exp_1->accept(this);
   elt->exp_2->accept(this);
+
+}
+
+void Skeleton::visitEGt(EGt *egt)
+{
+  /* Code For EGt Goes Here */
+
+  egt->exp_1->accept(this);
+  egt->exp_2->accept(this);
+
+}
+
+void Skeleton::visitEEq(EEq *eeq)
+{
+  /* Code For EEq Goes Here */
+
+  eeq->exp_1->accept(this);
+  eeq->exp_2->accept(this);
 
 }
 

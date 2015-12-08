@@ -35,22 +35,28 @@ void render(char* s);
   void visitFun(Fun *p);
   void visitDecl(Decl *p); /* abstract class */
   void visitDec(Dec *p);
+  void visitInit(Init *p); /* abstract class */
+  void visitIni(Ini *p);
   void visitListFunction(ListFunction* p);
   void visitListStm(ListStm* p);
   void visitListDecl(ListDecl* p);
   void visitListIdent(ListIdent* p);
   void visitStm(Stm *p); /* abstract class */
   void visitSDecl(SDecl *p);
+  void visitSInit(SInit *p);
   void visitSExp(SExp *p);
   void visitSBlock(SBlock *p);
   void visitSWhile(SWhile *p);
   void visitSReturn(SReturn *p);
   void visitSIf(SIf *p);
   void visitSIfElse(SIfElse *p);
-  void visitSFor3(SFor3 *p);
+  void visitSFor(SFor *p);
+  void visitSForIT(SForIT *p);
   void visitExp(Exp *p); /* abstract class */
   void visitEAss(EAss *p);
   void visitELt(ELt *p);
+  void visitEGt(EGt *p);
+  void visitEEq(EEq *p);
   void visitEAdd(EAdd *p);
   void visitESub(ESub *p);
   void visitEMul(EMul *p);
@@ -142,22 +148,28 @@ class ShowAbsyn : public Visitor
   void visitFun(Fun *p);
   void visitDecl(Decl *p); /* abstract class */
   void visitDec(Dec *p);
+  void visitInit(Init *p); /* abstract class */
+  void visitIni(Ini *p);
   void visitListFunction(ListFunction* p);
   void visitListStm(ListStm* p);
   void visitListDecl(ListDecl* p);
   void visitListIdent(ListIdent* p);
   void visitStm(Stm *p); /* abstract class */
   void visitSDecl(SDecl *p);
+  void visitSInit(SInit *p);
   void visitSExp(SExp *p);
   void visitSBlock(SBlock *p);
   void visitSWhile(SWhile *p);
   void visitSReturn(SReturn *p);
   void visitSIf(SIf *p);
   void visitSIfElse(SIfElse *p);
-  void visitSFor3(SFor3 *p);
+  void visitSFor(SFor *p);
+  void visitSForIT(SForIT *p);
   void visitExp(Exp *p); /* abstract class */
   void visitEAss(EAss *p);
   void visitELt(ELt *p);
+  void visitEGt(EGt *p);
+  void visitEEq(EEq *p);
   void visitEAdd(EAdd *p);
   void visitESub(ESub *p);
   void visitEMul(EMul *p);

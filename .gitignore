@@ -2,3 +2,7 @@
 *.s
 cmm2pstack
 TODO
+*.bak
+*.l
+*.y
+pstack/calc_out.apm

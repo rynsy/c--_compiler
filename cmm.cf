@@ -4,6 +4,7 @@ comment "/*" "*/" ;
 Prog. Program  ::= [Function] ;
 Fun.  Function ::= Type Ident "(" [Decl] ")" "{" [Stm] "}" ;
 Dec.  Decl     ::= Type [Ident] ;
+Ini.  Init     ::= Type Ident "=" Exp ;
 
 terminator Function "" ;
 terminator Stm "" ;
@@ -11,16 +12,20 @@ separator  Decl "," ;
 separator  nonempty Ident "," ;
 
 SDecl.   Stm ::= Decl ";"  ;
+SInit.   Stm ::= Init ";"  ;
 SExp.    Stm ::= Exp ";" ;
 SBlock.  Stm ::= "{" [Stm] "}" ;
 SWhile.  Stm ::= "while" "(" Exp ")" Stm ;
 SReturn. Stm ::= "return" Exp  ";" ;
 SIf.     Stm ::= "if" "(" Exp ")" Stm ;
 SIfElse. Stm ::= "if" "(" Exp ")" Stm "else" Stm ;
-SFor3.   Stm ::= "for" "(" Exp ";" Exp ";" Exp ")" Stm ;
+SFor.   Stm ::= "for" "(" Exp ";" Exp ";" Exp ")" Stm ;
+SForIT.   Stm ::= "for" "(" Init ";" Exp ";" Exp ")" Stm ;
 
 EAss.    Exp  ::= Ident "=" Exp ;
 ELt.     Exp1 ::= Exp2 "<" Exp2 ;
+EGt.     Exp1 ::= Exp2 ">" Exp2 ;
+EEq.     Exp1 ::= Exp2 "==" Exp2 ;
 EAdd.    Exp2 ::= Exp2 "+" Exp3 ;
 ESub.    Exp2 ::= Exp2 "-" Exp3 ;
 EMul.    Exp3 ::= Exp3 "*" Exp4 ;

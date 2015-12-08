@@ -22,22 +22,28 @@ typedef std::string Ident;
 class Program;
 class Function;
 class Decl;
+class Init;
 class Stm;
 class Exp;
 class Type;
 class Prog;
 class Fun;
 class Dec;
+class Ini;
 class SDecl;
+class SInit;
 class SExp;
 class SBlock;
 class SWhile;
 class SReturn;
 class SIf;
 class SIfElse;
-class SFor3;
+class SFor;
+class SForIT;
 class EAss;
 class ELt;
+class EGt;
+class EEq;
 class EAdd;
 class ESub;
 class EMul;
@@ -63,22 +69,28 @@ public:
   virtual void visitProgram(Program *p) = 0;
   virtual void visitFunction(Function *p) = 0;
   virtual void visitDecl(Decl *p) = 0;
+  virtual void visitInit(Init *p) = 0;
   virtual void visitStm(Stm *p) = 0;
   virtual void visitExp(Exp *p) = 0;
   virtual void visitType(Type *p) = 0;
   virtual void visitProg(Prog *p) = 0;
   virtual void visitFun(Fun *p) = 0;
   virtual void visitDec(Dec *p) = 0;
+  virtual void visitIni(Ini *p) = 0;
   virtual void visitSDecl(SDecl *p) = 0;
+  virtual void visitSInit(SInit *p) = 0;
   virtual void visitSExp(SExp *p) = 0;
   virtual void visitSBlock(SBlock *p) = 0;
   virtual void visitSWhile(SWhile *p) = 0;
   virtual void visitSReturn(SReturn *p) = 0;
   virtual void visitSIf(SIf *p) = 0;
   virtual void visitSIfElse(SIfElse *p) = 0;
-  virtual void visitSFor3(SFor3 *p) = 0;
+  virtual void visitSFor(SFor *p) = 0;
+  virtual void visitSForIT(SForIT *p) = 0;
   virtual void visitEAss(EAss *p) = 0;
   virtual void visitELt(ELt *p) = 0;
+  virtual void visitEGt(EGt *p) = 0;
+  virtual void visitEEq(EEq *p) = 0;
   virtual void visitEAdd(EAdd *p) = 0;
   virtual void visitESub(ESub *p) = 0;
   virtual void visitEMul(EMul *p) = 0;
@@ -133,6 +145,13 @@ class Decl : public Visitable
 {
 public:
   virtual Decl *clone() const = 0;
+
+};
+
+class Init : public Visitable
+{
+public:
+  virtual Init *clone() const = 0;
 
 };
 
@@ -205,6 +224,22 @@ public:
   void swap(Dec &);
 };
 
+class Ini : public Init
+{
+public:
+  Type *type_;
+  Ident ident_;
+  Exp *exp_;
+
+  Ini(const Ini &);
+  Ini &operator=(const Ini &);
+  Ini(Type *p1, Ident p2, Exp *p3);
+  ~Ini();
+  virtual void accept(Visitor *v);
+  virtual Ini *clone() const;
+  void swap(Ini &);
+};
+
 class SDecl : public Stm
 {
 public:
@@ -217,6 +252,20 @@ public:
   virtual void accept(Visitor *v);
   virtual SDecl *clone() const;
   void swap(SDecl &);
+};
+
+class SInit : public Stm
+{
+public:
+  Init *init_;
+
+  SInit(const SInit &);
+  SInit &operator=(const SInit &);
+  SInit(Init *p1);
+  ~SInit();
+  virtual void accept(Visitor *v);
+  virtual SInit *clone() const;
+  void swap(SInit &);
 };
 
 class SExp : public Stm
@@ -307,7 +356,7 @@ public:
   void swap(SIfElse &);
 };
 
-class SFor3 : public Stm
+class SFor : public Stm
 {
 public:
   Exp *exp_1;
@@ -315,13 +364,30 @@ public:
   Exp *exp_3;
   Stm *stm_;
 
-  SFor3(const SFor3 &);
-  SFor3 &operator=(const SFor3 &);
-  SFor3(Exp *p1, Exp *p2, Exp *p3, Stm *p4);
-  ~SFor3();
+  SFor(const SFor &);
+  SFor &operator=(const SFor &);
+  SFor(Exp *p1, Exp *p2, Exp *p3, Stm *p4);
+  ~SFor();
   virtual void accept(Visitor *v);
-  virtual SFor3 *clone() const;
-  void swap(SFor3 &);
+  virtual SFor *clone() const;
+  void swap(SFor &);
+};
+
+class SForIT : public Stm
+{
+public:
+  Init *init_;
+  Exp *exp_1;
+  Exp *exp_2;
+  Stm *stm_;
+
+  SForIT(const SForIT &);
+  SForIT &operator=(const SForIT &);
+  SForIT(Init *p1, Exp *p2, Exp *p3, Stm *p4);
+  ~SForIT();
+  virtual void accept(Visitor *v);
+  virtual SForIT *clone() const;
+  void swap(SForIT &);
 };
 
 class EAss : public Exp
@@ -352,6 +418,36 @@ public:
   virtual void accept(Visitor *v);
   virtual ELt *clone() const;
   void swap(ELt &);
+};
+
+class EGt : public Exp
+{
+public:
+  Exp *exp_1;
+  Exp *exp_2;
+
+  EGt(const EGt &);
+  EGt &operator=(const EGt &);
+  EGt(Exp *p1, Exp *p2);
+  ~EGt();
+  virtual void accept(Visitor *v);
+  virtual EGt *clone() const;
+  void swap(EGt &);
+};
+
+class EEq : public Exp
+{
+public:
+  Exp *exp_1;
+  Exp *exp_2;
+
+  EEq(const EEq &);
+  EEq &operator=(const EEq &);
+  EEq(Exp *p1, Exp *p2);
+  ~EEq();
+  virtual void accept(Visitor *v);
+  virtual EEq *clone() const;
+  void swap(EEq &);
 };
 
 class EAdd : public Exp

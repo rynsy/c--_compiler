@@ -54,8 +54,8 @@ execute () {
     ./pstack/api calc_out
   # Otherwise, run the intepreter.
   else
-    #./cmm2pstack.exe < "$testfile"
-    ./pass2i < "$testfile"
+    ./cmm2pstack.exe < "$testfile"
+    #./pass2i < "$testfile"
   fi
 }
 
