@@ -16,6 +16,7 @@ BUILT-IN-FUNCTIONS:
   exit()      : ends the program immediately
   puts("...") : prints a string (only literal strings are supported)
   putn(num)   : prints an integer (like printf("\t%d\n", num))
+  getnum()    : reads an integer from stdin and stores it in the [TOS] addr
 
 Note that function calls are not checked for number and type of
 arguments: giving the wrong number is likely to smash the stack.
