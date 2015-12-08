@@ -28,7 +28,7 @@ enum type_t {
 class Symbol {
     public:
 	Symbol();
-	Symbol(const std::string &name, type_t type = TY_BAD, int addr = -1);
+	Symbol(const std::string &name, type_t type = TY_BAD, int addr = -1, bool rval = 0, int argnum = 0);
 
 	// Accessors
 	virtual const std::string &name() const;
@@ -49,6 +49,8 @@ class Symbol {
 	std::string nam;
 	type_t typ;
 	int addr;
+        bool rval;  //is there a return value?
+        int argnum;
 };
 
 

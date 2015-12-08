@@ -8,8 +8,8 @@ Symbol::Symbol()
 	: nam(), typ(TY_BAD)
 {}
 
-Symbol::Symbol(const string &name, type_t type, int address)
-	: nam(name), typ(type), addr(address)
+Symbol::Symbol(const string &name, type_t type, int address, bool returnval, int args)
+	: nam(name), typ(type), addr(address), rval(returnval), argnum(args)
 {}
 
 const string &Symbol::name() const

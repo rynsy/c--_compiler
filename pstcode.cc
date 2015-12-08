@@ -83,11 +83,10 @@ void PstackCode::prolog(SymbolTable &fvsyms)
 	add(I_VARIABLE);
 	add(0);
 	add(-1);
-	add(I_VALUE);
-	add(I_READ);
+        add(I_READ);
 	add(1);
-	add(I_ENDPPROC);
-	add(1);
+        add(I_ENDPPROC);
+	add(0);
 	
         fvsyms.insert(Symbol("exit", TY_FUNC, pos()));
 	add(I_ENDPROG);
