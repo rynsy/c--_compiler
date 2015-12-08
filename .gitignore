@@ -6,3 +6,11 @@ TODO
 *.l
 *.y
 pstack/calc_out.apm
+pstack/apd
+pstack/apm
+pstack/api
+pstack/api.l.c
+pstack/apm.l.c
+pstack/apm.y.c
+pstack/apm.y.h
+calc_out.apm

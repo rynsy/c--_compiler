@@ -1,0 +1,5 @@
+#!/bin/bash
+bnfc --cpp cmm.cf
+make -f Makefile.codegen
+./test-cmm2pstack.sh
+./mytest-cmm2pstack.sh
