@@ -56,6 +56,7 @@ public:
     void visitProgram(Program *) {}
     void visitFunction(Function *) {}
     void visitDecl(Decl *) {}
+    void visitInit(Init *) {}
     void visitStm(Stm *) {}
     void visitExp(Exp *) {}
     void visitType(Type *) {}
@@ -63,6 +64,7 @@ public:
     void visitProg(Prog *p);
     void visitFun(Fun *p);
     void visitDec(Dec *p);
+    void visitIni(Ini *p);
     void visitListFunction(ListFunction* p);
     void visitListExp(ListExp* p);
     void visitListStm(ListStm* p);
@@ -73,15 +75,19 @@ public:
     void visitSIf(SIf *p);
     void visitSIfElse(SIfElse *p);
     void visitSDecl(SDecl *p);
+    void visitSInit(SInit *p);
     void visitSExp(SExp *p);
     void visitSBlock(SBlock *p);
     void visitSWhile(SWhile *p);
     void visitSReturn(SReturn *p);
-    void visitSFor3(SFor3 *p);
+    void visitSFor(SFor *p);
+    void visitSForIT(SForIT *p);
 
     // Expressions
     void visitEAss(EAss *p);
     void visitELt(ELt *p);
+    void visitEGt(EGt *p);
+    void visitEEq(EEq *p);
     void visitEAdd(EAdd *p);
     void visitESub(ESub *p);
     void visitEMul(EMul *p);

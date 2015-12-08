@@ -78,6 +78,18 @@ void CodeGen::visitDec(Dec *dec)
     dec->listident_->accept(this); // visitListIdent; uses currtype
 }
 
+void CodeGen::visitIni(Ini *in)
+{
+    in->type_->accept(this);
+    visitIdent(in->ident_);
+    symbols.insert(Symbol(currid, currtype, 3 + symbols.numvars() - funargs));
+    code.add(I_VARIABLE);
+    code.add(symbols.levelof(currid));
+    code.add(symbols[currid]->address());
+    in->exp_->accept(this);
+    code.add(I_ASSIGN);
+}
+
 void CodeGen::visitSIf(SIf *sif) //Written by RL, 12:00pm 12/1/2015
 {
     sif->exp_->accept(this);
@@ -108,28 +120,61 @@ void CodeGen::visitSIfElse(SIfElse *sifel)
     code.at(patchloc) = code.pos() - (patchloc - 1);
 }
 
-void CodeGen::visitSFor3(SFor3 *sfor3)
+void CodeGen::visitSFor(SFor *sfor)
 {
-    sfor3->exp_1->accept(this); //initialize
+    sfor->exp_1->accept(this); //initialize
     
     int looploc = code.pos();
-    sfor3->exp_2->accept(this); //eval cond.
+    sfor->exp_2->accept(this); //eval cond.
     code.add(I_JR_IF_FALSE);
     code.add(0);
     int patchloc = code.pos() - 1;
 
-    sfor3->stm_->accept(this);
-    sfor3->exp_3->accept(this);
+    sfor->stm_->accept(this);
+    sfor->exp_3->accept(this);
 
     code.add(I_JR);
     code.add(looploc - (code.pos() - 1));
     code.at(patchloc) = code.pos() - (patchloc - 1);
+}
 
+void CodeGen::visitSForIT(SForIT *sforit)
+{
+    code.add(I_PROC);
+    int varloc = code.pos();
+    code.add(0);
+    code.add(code.pos() + 1);
+
+    symbols.enter();
+    int startvar = symbols.numvars();
+
+    sforit->init_->accept(this);
+    int looploc = code.pos();
+    sforit->exp_1->accept(this); //eval cond.
+    code.add(I_JR_IF_FALSE);
+    code.add(0);
+    int patchloc = code.pos() - 1;
+
+    sforit->stm_->accept(this);
+    sforit->exp_2->accept(this);
+    code.add(I_JR);
+    code.add(looploc - (code.pos() - 1));
+    code.at(patchloc) = code.pos() - (patchloc - 1);
+
+    code.at(varloc) = symbols.numvars() - startvar;
+    symbols.leave();
+    code.add(I_ENDPROC);
+    code.add(funargs);
 }
 
 void CodeGen::visitSDecl(SDecl *sdecl)
 {
     sdecl->decl_->accept(this); // visitDec
+}
+
+void CodeGen::visitSInit(SInit *sinit)
+{
+    sinit->init_->accept(this); // visitDec
 }
 
 void CodeGen::visitSExp(SExp *sexp)
@@ -211,6 +256,20 @@ void CodeGen::visitELt(ELt *elt)
     elt->exp_1->accept(this);
     elt->exp_2->accept(this);
     code.add(I_LESS);
+}
+
+void CodeGen::visitEGt(EGt *egt)
+{
+    egt->exp_1->accept(this);
+    egt->exp_2->accept(this);
+    code.add(I_GREATER);
+}
+
+void CodeGen::visitEEq(EEq *eeq)
+{
+    eeq->exp_1->accept(this);
+    eeq->exp_2->accept(this);
+    code.add(I_EQUAL);
 }
 
 void CodeGen::visitEAdd(EAdd *eadd)
