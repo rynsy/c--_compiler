@@ -215,11 +215,8 @@ void CodeGen::visitSReturn(SReturn *sreturn)
 
     // Store the top of stack (return value) at (bp-funargs)
     code.add(I_VARIABLE);
-    code.add(0);
     code.add(-(funargs+1));
-    code.add(I_SWAP);
     code.add(I_ASSIGN);
-    code.add(1);
 
     // And return, popping off our parameters.
     code.add(I_ENDPPROC);
