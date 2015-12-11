@@ -47,8 +47,8 @@ void CodeGen::visitFun(Fun *fun)
 
     if (symbols.exists(fun_name))
         throw Redeclared(fun_name);
-
-    symbols.insert(Symbol(fun_name, TY_FUNC, code.pos()));
+    
+    symbols.insert(Symbol(fun_name, TY_FUNC, code.pos(), 1, 0));
 
     code.add(I_PROC);
     int patchloc = code.pos(); // to be filled with number of local variables.
@@ -58,6 +58,9 @@ void CodeGen::visitFun(Fun *fun)
     symbols.enter(); // since parameters are local to the function
     // Adds entries to symbol table, sets funargs
     fun->listdecl_->accept(this);
+    
+    symbols[fun_name]->set_argn(funargs);
+
     int startvar = symbols.numvars();
 
     // Generate code for function body.
@@ -215,8 +218,11 @@ void CodeGen::visitSReturn(SReturn *sreturn)
 
     // Store the top of stack (return value) at (bp-funargs)
     code.add(I_VARIABLE);
+    code.add(0);
     code.add(-(funargs+1));
+    code.add(I_SWAP);
     code.add(I_ASSIGN);
+    code.add(1);
 
     // And return, popping off our parameters.
     code.add(I_ENDPPROC);
@@ -298,7 +304,12 @@ void CodeGen::visitCall(Call *call)
 
     int level = symbols.levelof(currid);
     int addr = symbols[currid]->address();
+    int argn = symbols[currid]->get_argn();
+    int totalvar = call->listexp_->size();
 
+    if( totalvar != argn ) 
+        throw BadCall(currid);
+    
     // Make room on the stack for the return value.  Assumes all functions
     // will return some value.
     code.add(I_CONSTANT);
@@ -306,6 +317,7 @@ void CodeGen::visitCall(Call *call)
 
     // Generate code for the expressions (which leaves their values on the
     // stack when executed).
+
     call->listexp_->accept(this);
 
     code.add(I_CALL);

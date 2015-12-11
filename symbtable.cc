@@ -37,6 +37,31 @@ int Symbol::address() const
 	return addr;
 }
 
+bool &Symbol::returns()
+{
+	return rval;
+}
+
+bool Symbol::returns() const
+{
+	return rval;
+}
+
+int &Symbol::get_argn()
+{
+	return argnum;
+}
+
+int Symbol::get_argn() const
+{
+	return argnum;
+}
+
+void Symbol::set_argn(int n)
+{
+	argnum = n;
+}
+
 bool Symbol::operator<(const Symbol &s) const
 {
 	return nam < s.nam;

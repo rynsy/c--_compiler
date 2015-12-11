@@ -41,6 +41,14 @@ class Symbol {
 	virtual int &address();
 	virtual int address() const;
 
+	virtual bool &returns();
+	virtual bool returns() const;
+
+	virtual int &get_argn();
+	virtual int get_argn() const;
+
+        void set_argn(int x);
+
 	// Comparison operators
 	virtual bool operator<(const Symbol &s) const;
 	virtual bool operator==(const Symbol &s) const;
@@ -50,7 +58,7 @@ class Symbol {
 	type_t typ;
 	int addr;
         bool rval;  //is there a return value?
-        int argnum;
+        int argnum; //number of arguments if this is a function
 };
 
 

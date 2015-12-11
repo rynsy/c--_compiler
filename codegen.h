@@ -30,6 +30,14 @@ public:
     {}
 };
 
+class BadCall : public std::logic_error
+{
+public:
+    BadCall(const std::string &name)
+        : logic_error("Wrong number of args for: \"" + name + "\"")
+    {}
+};
+
 class Unimplemented : public std::logic_error
 {
 public:
