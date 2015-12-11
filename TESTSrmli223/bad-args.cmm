@@ -1,13 +1,13 @@
-int test(int x, int y) 
+int test(int x) 
 {
-    return x + y;
+    return x + 1;
 }
 
 
 int main () 
 {
   int sum;
-  sum = test(1);
+  sum = test(1, 1);
   putn(sum);
   return 0;
 }

@@ -20,7 +20,6 @@ void CodeGen::visitProg(Prog *prog)
     code.add(0);
     code.add(0);
     code.add(I_ENDPROG);
-
     // Generate code for the functions.
     prog->listfunction_->accept(this);
 

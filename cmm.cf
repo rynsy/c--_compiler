@@ -4,6 +4,7 @@ comment "/*" "*/" ;
 Prog. Program  ::= [Function] ;
 Fun.  Function ::= Type Ident "(" [Decl] ")" "{" [Stm] "}" ;
 Dec.  Decl     ::= Type [Ident] ;
+
 Ini.  Decl     ::= Type Ident "=" Exp ;
 
 terminator Function "" ;
