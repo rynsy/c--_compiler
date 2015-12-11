@@ -6,7 +6,7 @@ int test(int x, int y) {
 int main () 
 {
   int sum;
-  sum = test(1+1);
+  sum = test(1,1);
   putn(sum);
   return 0;
 }

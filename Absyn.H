@@ -22,7 +22,6 @@ typedef std::string Ident;
 class Program;
 class Function;
 class Decl;
-class Init;
 class Stm;
 class Exp;
 class Type;
@@ -31,7 +30,6 @@ class Fun;
 class Dec;
 class Ini;
 class SDecl;
-class SInit;
 class SExp;
 class SBlock;
 class SWhile;
@@ -69,7 +67,6 @@ public:
   virtual void visitProgram(Program *p) = 0;
   virtual void visitFunction(Function *p) = 0;
   virtual void visitDecl(Decl *p) = 0;
-  virtual void visitInit(Init *p) = 0;
   virtual void visitStm(Stm *p) = 0;
   virtual void visitExp(Exp *p) = 0;
   virtual void visitType(Type *p) = 0;
@@ -78,7 +75,6 @@ public:
   virtual void visitDec(Dec *p) = 0;
   virtual void visitIni(Ini *p) = 0;
   virtual void visitSDecl(SDecl *p) = 0;
-  virtual void visitSInit(SInit *p) = 0;
   virtual void visitSExp(SExp *p) = 0;
   virtual void visitSBlock(SBlock *p) = 0;
   virtual void visitSWhile(SWhile *p) = 0;
@@ -145,13 +141,6 @@ class Decl : public Visitable
 {
 public:
   virtual Decl *clone() const = 0;
-
-};
-
-class Init : public Visitable
-{
-public:
-  virtual Init *clone() const = 0;
 
 };
 
@@ -224,7 +213,7 @@ public:
   void swap(Dec &);
 };
 
-class Ini : public Init
+class Ini : public Decl
 {
 public:
   Type *type_;
@@ -252,20 +241,6 @@ public:
   virtual void accept(Visitor *v);
   virtual SDecl *clone() const;
   void swap(SDecl &);
-};
-
-class SInit : public Stm
-{
-public:
-  Init *init_;
-
-  SInit(const SInit &);
-  SInit &operator=(const SInit &);
-  SInit(Init *p1);
-  ~SInit();
-  virtual void accept(Visitor *v);
-  virtual SInit *clone() const;
-  void swap(SInit &);
 };
 
 class SExp : public Stm
@@ -376,14 +351,14 @@ public:
 class SForIT : public Stm
 {
 public:
-  Init *init_;
+  Decl *decl_;
   Exp *exp_1;
   Exp *exp_2;
   Stm *stm_;
 
   SForIT(const SForIT &);
   SForIT &operator=(const SForIT &);
-  SForIT(Init *p1, Exp *p2, Exp *p3, Stm *p4);
+  SForIT(Decl *p1, Exp *p2, Exp *p3, Stm *p4);
   ~SForIT();
   virtual void accept(Visitor *v);
   virtual SForIT *clone() const;

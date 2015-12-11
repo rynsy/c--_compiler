@@ -11,7 +11,6 @@ public:
   void visitProgram(Program* p);
   void visitFunction(Function* p);
   void visitDecl(Decl* p);
-  void visitInit(Init* p);
   void visitStm(Stm* p);
   void visitExp(Exp* p);
   void visitType(Type* p);
@@ -20,7 +19,6 @@ public:
   void visitDec(Dec* p);
   void visitIni(Ini* p);
   void visitSDecl(SDecl* p);
-  void visitSInit(SInit* p);
   void visitSExp(SExp* p);
   void visitSBlock(SBlock* p);
   void visitSWhile(SWhile* p);

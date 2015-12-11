@@ -8,7 +8,6 @@
 class Program;
 class Function;
 class Decl;
-class Init;
 class ListFunction;
 class ListStm;
 class ListDecl;
@@ -27,7 +26,6 @@ typedef union
   Program* program_;
   Function* function_;
   Decl* decl_;
-  Init* init_;
   ListFunction* listfunction_;
   ListStm* liststm_;
   ListDecl* listdecl_;
@@ -44,8 +42,6 @@ Function* pFunction(FILE *inp);
 Function* pFunction(const char *str);
 Decl* pDecl(FILE *inp);
 Decl* pDecl(const char *str);
-Init* pInit(FILE *inp);
-Init* pInit(const char *str);
 ListFunction* pListFunction(FILE *inp);
 ListFunction* pListFunction(const char *str);
 ListStm* pListStm(FILE *inp);

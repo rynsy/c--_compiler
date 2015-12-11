@@ -151,7 +151,7 @@ void CodeGen::visitSForIT(SForIT *sforit)
     symbols.enter();
     int startvar = symbols.numvars();
 
-    sforit->init_->accept(this);
+    sforit->decl_->accept(this);
     int looploc = code.pos();
     sforit->exp_1->accept(this); //eval cond.
     code.add(I_JR_IF_FALSE);
@@ -173,11 +173,6 @@ void CodeGen::visitSForIT(SForIT *sforit)
 void CodeGen::visitSDecl(SDecl *sdecl)
 {
     sdecl->decl_->accept(this); // visitDec
-}
-
-void CodeGen::visitSInit(SInit *sinit)
-{
-    sinit->init_->accept(this); // visitDec
 }
 
 void CodeGen::visitSExp(SExp *sexp)

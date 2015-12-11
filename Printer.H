@@ -35,7 +35,6 @@ void render(char* s);
   void visitFun(Fun *p);
   void visitDecl(Decl *p); /* abstract class */
   void visitDec(Dec *p);
-  void visitInit(Init *p); /* abstract class */
   void visitIni(Ini *p);
   void visitListFunction(ListFunction* p);
   void visitListStm(ListStm* p);
@@ -43,7 +42,6 @@ void render(char* s);
   void visitListIdent(ListIdent* p);
   void visitStm(Stm *p); /* abstract class */
   void visitSDecl(SDecl *p);
-  void visitSInit(SInit *p);
   void visitSExp(SExp *p);
   void visitSBlock(SBlock *p);
   void visitSWhile(SWhile *p);
@@ -148,7 +146,6 @@ class ShowAbsyn : public Visitor
   void visitFun(Fun *p);
   void visitDecl(Decl *p); /* abstract class */
   void visitDec(Dec *p);
-  void visitInit(Init *p); /* abstract class */
   void visitIni(Ini *p);
   void visitListFunction(ListFunction* p);
   void visitListStm(ListStm* p);
@@ -156,7 +153,6 @@ class ShowAbsyn : public Visitor
   void visitListIdent(ListIdent* p);
   void visitStm(Stm *p); /* abstract class */
   void visitSDecl(SDecl *p);
-  void visitSInit(SInit *p);
   void visitSExp(SExp *p);
   void visitSBlock(SBlock *p);
   void visitSWhile(SWhile *p);

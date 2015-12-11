@@ -154,8 +154,6 @@ void PrintAbsyn::visitDec(Dec* p)
   _i_ = oldi;
 }
 
-void PrintAbsyn::visitInit(Init*p) {} //abstract class
-
 void PrintAbsyn::visitIni(Ini* p)
 {
   int oldi = _i_;
@@ -207,19 +205,6 @@ void PrintAbsyn::visitSDecl(SDecl* p)
   if (oldi > 0) render(_L_PAREN);
 
   _i_ = 0; p->decl_->accept(this);
-  render(';');
-
-  if (oldi > 0) render(_R_PAREN);
-
-  _i_ = oldi;
-}
-
-void PrintAbsyn::visitSInit(SInit* p)
-{
-  int oldi = _i_;
-  if (oldi > 0) render(_L_PAREN);
-
-  _i_ = 0; p->init_->accept(this);
   render(';');
 
   if (oldi > 0) render(_R_PAREN);
@@ -344,7 +329,7 @@ void PrintAbsyn::visitSForIT(SForIT* p)
 
   render("for");
   render('(');
-  _i_ = 0; p->init_->accept(this);
+  _i_ = 0; p->decl_->accept(this);
   render(';');
   _i_ = 0; p->exp_1->accept(this);
   render(';');
@@ -648,8 +633,6 @@ void ShowAbsyn::visitDec(Dec* p)
   bufAppend(']');
   bufAppend(')');
 }
-void ShowAbsyn::visitInit(Init* p) {} //abstract class
-
 void ShowAbsyn::visitIni(Ini* p)
 {
   bufAppend('(');
@@ -711,17 +694,6 @@ void ShowAbsyn::visitSDecl(SDecl* p)
   bufAppend(' ');
   bufAppend('[');
   if (p->decl_)  p->decl_->accept(this);
-  bufAppend(']');
-  bufAppend(' ');
-  bufAppend(')');
-}
-void ShowAbsyn::visitSInit(SInit* p)
-{
-  bufAppend('(');
-  bufAppend("SInit");
-  bufAppend(' ');
-  bufAppend('[');
-  if (p->init_)  p->init_->accept(this);
   bufAppend(']');
   bufAppend(' ');
   bufAppend(')');
@@ -823,7 +795,7 @@ void ShowAbsyn::visitSForIT(SForIT* p)
   bufAppend("SForIT");
   bufAppend(' ');
   bufAppend('[');
-  if (p->init_)  p->init_->accept(this);
+  if (p->decl_)  p->decl_->accept(this);
   bufAppend(']');
   bufAppend(' ');
   p->exp_1->accept(this);

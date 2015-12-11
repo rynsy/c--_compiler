@@ -64,7 +64,6 @@ public:
     void visitProgram(Program *) {}
     void visitFunction(Function *) {}
     void visitDecl(Decl *) {}
-    void visitInit(Init *) {}
     void visitStm(Stm *) {}
     void visitExp(Exp *) {}
     void visitType(Type *) {}
@@ -83,7 +82,6 @@ public:
     void visitSIf(SIf *p);
     void visitSIfElse(SIfElse *p);
     void visitSDecl(SDecl *p);
-    void visitSInit(SInit *p);
     void visitSExp(SExp *p);
     void visitSBlock(SBlock *p);
     void visitSWhile(SWhile *p);

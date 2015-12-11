@@ -247,50 +247,6 @@ SDecl *SDecl::clone() const
 
 
 
-/********************   SInit    ********************/
-SInit::SInit(Init *p1)
-{
-  init_ = p1;
-
-}
-
-SInit::SInit(const SInit & other)
-{
-  init_ = other.init_->clone();
-
-}
-
-SInit &SInit::operator=(const SInit & other)
-{
-  SInit tmp(other);
-  swap(tmp);
-  return *this;
-}
-
-void SInit::swap(SInit & other)
-{
-  std::swap(init_, other.init_);
-
-}
-
-SInit::~SInit()
-{
-  delete(init_);
-
-}
-
-void SInit::accept(Visitor *v)
-{
-  v->visitSInit(this);
-}
-
-SInit *SInit::clone() const
-{
-  return new SInit(*this);
-}
-
-
-
 /********************   SExp    ********************/
 SExp::SExp(Exp *p1)
 {
@@ -628,9 +584,9 @@ SFor *SFor::clone() const
 
 
 /********************   SForIT    ********************/
-SForIT::SForIT(Init *p1, Exp *p2, Exp *p3, Stm *p4)
+SForIT::SForIT(Decl *p1, Exp *p2, Exp *p3, Stm *p4)
 {
-  init_ = p1;
+  decl_ = p1;
   exp_1 = p2;
   exp_2 = p3;
   stm_ = p4;
@@ -639,7 +595,7 @@ SForIT::SForIT(Init *p1, Exp *p2, Exp *p3, Stm *p4)
 
 SForIT::SForIT(const SForIT & other)
 {
-  init_ = other.init_->clone();
+  decl_ = other.decl_->clone();
   exp_1 = other.exp_1->clone();
   exp_2 = other.exp_2->clone();
   stm_ = other.stm_->clone();
@@ -655,7 +611,7 @@ SForIT &SForIT::operator=(const SForIT & other)
 
 void SForIT::swap(SForIT & other)
 {
-  std::swap(init_, other.init_);
+  std::swap(decl_, other.decl_);
   std::swap(exp_1, other.exp_1);
   std::swap(exp_2, other.exp_2);
   std::swap(stm_, other.stm_);
@@ -664,7 +620,7 @@ void SForIT::swap(SForIT & other)
 
 SForIT::~SForIT()
 {
-  delete(init_);
+  delete(decl_);
   delete(exp_1);
   delete(exp_2);
   delete(stm_);

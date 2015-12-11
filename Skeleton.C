@@ -11,7 +11,6 @@
 void Skeleton::visitProgram(Program* t) {} //abstract class
 void Skeleton::visitFunction(Function* t) {} //abstract class
 void Skeleton::visitDecl(Decl* t) {} //abstract class
-void Skeleton::visitInit(Init* t) {} //abstract class
 void Skeleton::visitStm(Stm* t) {} //abstract class
 void Skeleton::visitExp(Exp* t) {} //abstract class
 void Skeleton::visitType(Type* t) {} //abstract class
@@ -59,14 +58,6 @@ void Skeleton::visitSDecl(SDecl *sdecl)
   /* Code For SDecl Goes Here */
 
   sdecl->decl_->accept(this);
-
-}
-
-void Skeleton::visitSInit(SInit *sinit)
-{
-  /* Code For SInit Goes Here */
-
-  sinit->init_->accept(this);
 
 }
 
@@ -137,7 +128,7 @@ void Skeleton::visitSForIT(SForIT *sforit)
 {
   /* Code For SForIT Goes Here */
 
-  sforit->init_->accept(this);
+  sforit->decl_->accept(this);
   sforit->exp_1->accept(this);
   sforit->exp_2->accept(this);
   sforit->stm_->accept(this);
