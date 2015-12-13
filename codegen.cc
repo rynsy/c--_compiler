@@ -31,7 +31,7 @@ void CodeGen::visitProg(Prog *prog)
 
     // Patch up the address of main.
     code.at(patchloc) = level;
-    code.at(patchloc + 1) = addr;
+    code.at(patchloc + 1) = addr + globvar;
 
     code.end_prog();
 }
@@ -47,7 +47,7 @@ void CodeGen::visitFun(Fun *fun)
     if (symbols.exists(fun_name))
         throw Redeclared(fun_name);
     
-    symbols.insert(Symbol(fun_name, TY_FUNC, code.pos(), 1, 0));
+    symbols.insert(Symbol(fun_name, TY_FUNC, code.pos(), currtype, 0));
 
     code.add(I_PROC);
     int patchloc = code.pos(); // to be filled with number of local variables.
@@ -58,7 +58,7 @@ void CodeGen::visitFun(Fun *fun)
     // Adds entries to symbol table, sets funargs
     fun->listdecl_->accept(this);
     
-    symbols[fun_name]->set_argn(funargs);
+    symbols[fun_name]->argn() = funargs;
 
     int startvar = symbols.numvars();
 
@@ -72,6 +72,14 @@ void CodeGen::visitFun(Fun *fun)
     // Return, popping off our parameters.
     code.add(I_ENDPPROC);
     code.add(funargs);
+}
+
+void CodeGen::visitGlobal(Global *g)
+{
+    g->type_->accept(this);
+    visitIdent(g->ident_);
+    symbols.insert(Symbol(currid, currtype, 3 + symbols.numvars()));
+    globvar++;
 }
 
 void CodeGen::visitDec(Dec *dec)
@@ -296,7 +304,7 @@ void CodeGen::visitCall(Call *call)
 
     int level = symbols.levelof(currid);
     int addr = symbols[currid]->address();
-    int argn = symbols[currid]->get_argn();
+    int argn = symbols[currid]->argn();
     int totalvar = call->listexp_->size();
 
     if( totalvar != argn ) 
@@ -391,6 +399,7 @@ void CodeGen::visitListDecl(ListDecl* listdecl)
         // The first argument (currarg = 0) has address -nargs; the last
         // (currarg = nargs - 1) has address -1.
         symbols[currid]->address() = currarg - funargs;
+        symbols[currid]->arg_type() = currtype;     //fixme if you change grammar to support multiple parameters
     }
 }
 

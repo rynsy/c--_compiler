@@ -123,6 +123,20 @@ void PrintAbsyn::visitProg(Prog* p)
 
 void PrintAbsyn::visitFunction(Function*p) {} //abstract class
 
+void PrintAbsyn::visitGlobal(Global* p)
+{
+  int oldi = _i_;
+  if (oldi > 0) render(_L_PAREN);
+
+  _i_ = 0; p->type_->accept(this);
+  visitIdent(p->ident_);
+  render(';');
+
+  if (oldi > 0) render(_R_PAREN);
+
+  _i_ = oldi;
+}
+
 void PrintAbsyn::visitFun(Fun* p)
 {
   int oldi = _i_;
@@ -596,6 +610,19 @@ void ShowAbsyn::visitProg(Prog* p)
 }
 void ShowAbsyn::visitFunction(Function* p) {} //abstract class
 
+void ShowAbsyn::visitGlobal(Global* p)
+{
+  bufAppend('(');
+  bufAppend("Global");
+  bufAppend(' ');
+  bufAppend('[');
+  if (p->type_)  p->type_->accept(this);
+  bufAppend(']');
+  bufAppend(' ');
+  visitIdent(p->ident_);
+  bufAppend(' ');
+  bufAppend(')');
+}
 void ShowAbsyn::visitFun(Fun* p)
 {
   bufAppend('(');

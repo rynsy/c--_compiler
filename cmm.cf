@@ -2,6 +2,7 @@ comment "//" ;
 comment "/*" "*/" ;
 
 Prog. Program  ::= [Function] ;
+Global. Function ::= Type Ident ";" ;
 Fun.  Function ::= Type Ident "(" [Decl] ")" "{" [Stm] "}" ;
 Dec.  Decl     ::= Type [Ident] ;
 

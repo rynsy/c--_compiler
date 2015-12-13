@@ -52,9 +52,10 @@ private:
     PstackCode code;     // buffer to hold generated code
     SymbolTable symbols; // symbol table
     int funargs;         // number of parameters in current function.
+    int globvar;
 public:
     CodeGen()
-        : currid(""), currtype(TY_BAD), code(), symbols(), funargs(-1)
+        : currid(""), currtype(TY_BAD), code(), symbols(), funargs(-1), globvar(0)
     {}
     PstackCode generate(Visitable *vis);
 
@@ -69,6 +70,7 @@ public:
     void visitType(Type *) {}
 
     void visitProg(Prog *p);
+    void visitGlobal(Global *p);
     void visitFun(Fun *p);
     void visitDec(Dec *p);
     void visitIni(Ini *p);

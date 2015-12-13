@@ -8,8 +8,8 @@ Symbol::Symbol()
 	: nam(), typ(TY_BAD)
 {}
 
-Symbol::Symbol(const string &name, type_t type, int address, bool returnval, int args)
-	: nam(name), typ(type), addr(address), rval(returnval), argnum(args)
+Symbol::Symbol(const string &name, type_t type, int address, type_t returnval, int args, type_t argt)
+	: nam(name), typ(type), addr(address), rtype(returnval), argnum(args), argtype(argt)
 {}
 
 const string &Symbol::name() const
@@ -37,29 +37,34 @@ int Symbol::address() const
 	return addr;
 }
 
-bool &Symbol::returns()
-{
-	return rval;
-}
-
-bool Symbol::returns() const
-{
-	return rval;
-}
-
-int &Symbol::get_argn()
+int &Symbol::argn()
 {
 	return argnum;
 }
 
-int Symbol::get_argn() const
+int Symbol::argn() const
 {
 	return argnum;
 }
 
-void Symbol::set_argn(int n)
+type_t &Symbol::return_type()
 {
-	argnum = n;
+	return rtype;
+}
+
+type_t Symbol::return_type() const
+{
+	return rtype;
+}
+
+type_t &Symbol::arg_type()
+{
+	return argtype;
+}
+
+type_t Symbol::arg_type() const
+{
+	return argtype;
 }
 
 bool Symbol::operator<(const Symbol &s) const
@@ -142,6 +147,11 @@ bool SymbolTable::exists(const string &str) const
 	return false;
 }
 
+static bool is_data_type(type_t ty)
+{
+	return ty == TY_INT || ty == TY_DOUBLE;
+}
+
 int SymbolTable::numvars() const
 {
 	return hashes.front().size();
@@ -158,3 +168,30 @@ int SymbolTable::levelof(const string &str) const
 	return -1;
 }
 
+static const char *type_name(type_t ty)
+{
+	switch (ty) {
+	case TY_BAD: return "ERROR";
+	case TY_INT: return "int";
+	case TY_DOUBLE: return "double";
+	case TY_FUNC: return "function";
+	default: return "ERROR?";
+	}
+}
+
+void SymbolTable::dump(std::ostream &out) const
+{
+	int j = 0;
+	symtabint::const_reverse_iterator i;
+	for(i=hashes.rbegin(); i != hashes.rend(); ++i, ++j)
+	{
+		out << "level " << j << ": [ ";
+		symtabsingle::const_iterator j;
+		for (j=i->begin(); j != i->end(); ++j)
+		{
+			out << j->second.name() << ":"
+			    << type_name(j->second.type()) << " ";
+		}
+		out << "]" << endl;
+	}
+}

@@ -4,7 +4,7 @@
 #include <string>
 #include <list>
 #include <utility>
-
+#include <iostream>
 /* If USE_HASH_MAP is defined, we will use the SGI hash_map extension.
  * Otherwise, we will use the STL map container, which is generally not
  * implemented as a hash table (in SGI's implementation, it uses a red-
@@ -28,7 +28,7 @@ enum type_t {
 class Symbol {
     public:
 	Symbol();
-	Symbol(const std::string &name, type_t type = TY_BAD, int addr = -1, bool rval = 0, int argnum = 0);
+	Symbol(const std::string &name, type_t type = TY_BAD, int addr = -1, type_t rtype = TY_BAD, int argnum = 0, type_t argtype = TY_BAD);
 
 	// Accessors
 	virtual const std::string &name() const;
@@ -40,16 +40,17 @@ class Symbol {
 	// Accessor and reference accessor for the address
 	virtual int &address();
 	virtual int address() const;
+	
+        virtual int &argn();
+	virtual int argn() const;
 
-	virtual bool &returns();
-	virtual bool returns() const;
+        virtual type_t &return_type();
+        virtual type_t return_type() const;
 
-	virtual int &get_argn();
-	virtual int get_argn() const;
-
-        void set_argn(int x);
-
-	// Comparison operators
+        virtual type_t &arg_type();
+        virtual type_t arg_type() const;
+	
+        // Comparison operators
 	virtual bool operator<(const Symbol &s) const;
 	virtual bool operator==(const Symbol &s) const;
 	virtual bool operator!=(const Symbol &s) const;
@@ -57,8 +58,9 @@ class Symbol {
 	std::string nam;
 	type_t typ;
 	int addr;
-        bool rval;  //is there a return value?
+        type_t rtype;  //is there a return value?
         int argnum; //number of arguments if this is a function
+        type_t argtype;  //is there a return value?
 };
 
 
@@ -87,6 +89,8 @@ class SymbolTable {
 	// Enter/leave a new scope.
 	void enter();
 	void leave();
+        
+        void dump(std::ostream &out) const; 
 
     private:
 	// The actual list of tables.

@@ -23,6 +23,15 @@ void Skeleton::visitProg(Prog *prog)
 
 }
 
+void Skeleton::visitGlobal(Global *global)
+{
+  /* Code For Global Goes Here */
+
+  global->type_->accept(this);
+  visitIdent(global->ident_);
+
+}
+
 void Skeleton::visitFun(Fun *fun)
 {
   /* Code For Fun Goes Here */

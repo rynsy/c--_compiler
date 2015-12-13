@@ -49,6 +49,53 @@ Prog *Prog::clone() const
 
 
 
+/********************   Global    ********************/
+Global::Global(Type *p1, Ident p2)
+{
+  type_ = p1;
+  ident_ = p2;
+
+}
+
+Global::Global(const Global & other)
+{
+  type_ = other.type_->clone();
+  ident_ = other.ident_;
+
+}
+
+Global &Global::operator=(const Global & other)
+{
+  Global tmp(other);
+  swap(tmp);
+  return *this;
+}
+
+void Global::swap(Global & other)
+{
+  std::swap(type_, other.type_);
+  std::swap(ident_, other.ident_);
+
+}
+
+Global::~Global()
+{
+  delete(type_);
+
+}
+
+void Global::accept(Visitor *v)
+{
+  v->visitGlobal(this);
+}
+
+Global *Global::clone() const
+{
+  return new Global(*this);
+}
+
+
+
 /********************   Fun    ********************/
 Fun::Fun(Type *p1, Ident p2, ListDecl *p3, ListStm *p4)
 {

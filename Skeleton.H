@@ -15,6 +15,7 @@ public:
   void visitExp(Exp* p);
   void visitType(Type* p);
   void visitProg(Prog* p);
+  void visitGlobal(Global* p);
   void visitFun(Fun* p);
   void visitDec(Dec* p);
   void visitIni(Ini* p);

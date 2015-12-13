@@ -26,6 +26,7 @@ class Stm;
 class Exp;
 class Type;
 class Prog;
+class Global;
 class Fun;
 class Dec;
 class Ini;
@@ -71,6 +72,7 @@ public:
   virtual void visitExp(Exp *p) = 0;
   virtual void visitType(Type *p) = 0;
   virtual void visitProg(Prog *p) = 0;
+  virtual void visitGlobal(Global *p) = 0;
   virtual void visitFun(Fun *p) = 0;
   virtual void visitDec(Dec *p) = 0;
   virtual void visitIni(Ini *p) = 0;
@@ -179,6 +181,21 @@ public:
   virtual void accept(Visitor *v);
   virtual Prog *clone() const;
   void swap(Prog &);
+};
+
+class Global : public Function
+{
+public:
+  Type *type_;
+  Ident ident_;
+
+  Global(const Global &);
+  Global &operator=(const Global &);
+  Global(Type *p1, Ident p2);
+  ~Global();
+  virtual void accept(Visitor *v);
+  virtual Global *clone() const;
+  void swap(Global &);
 };
 
 class Fun : public Function

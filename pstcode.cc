@@ -46,7 +46,7 @@ void PstackCode::begin_prog()
 
 void PstackCode::prolog(SymbolTable &fvsyms)
 {
-	fvsyms.insert(Symbol("puts", TY_FUNC, pos(), 0, 1));
+	fvsyms.insert(Symbol("puts", TY_FUNC, pos(), TY_BAD, 1));
 	add(I_VARIABLE);
 	add(0);
 	add(-1);
@@ -69,7 +69,7 @@ void PstackCode::prolog(SymbolTable &fvsyms)
 	add(I_ENDPPROC);
 	add(1);
 
-	fvsyms.insert(Symbol("putn", TY_FUNC, pos(), 0, 1));
+	fvsyms.insert(Symbol("putn", TY_FUNC, pos(), TY_BAD, 1));
 	add(I_VARIABLE);
 	add(0);
 	add(-1);
@@ -79,7 +79,7 @@ void PstackCode::prolog(SymbolTable &fvsyms)
 	add(I_ENDPPROC);
 	add(1);
 
-	fvsyms.insert(Symbol("getnum", TY_FUNC, pos(), 1, 0));
+	fvsyms.insert(Symbol("getnum", TY_FUNC, pos(), TY_INT, 0));
 	add(I_VARIABLE);
 	add(0);
 	add(-1);
@@ -88,7 +88,7 @@ void PstackCode::prolog(SymbolTable &fvsyms)
         add(I_ENDPPROC);
 	add(0);
 	
-        fvsyms.insert(Symbol("exit", TY_FUNC, pos(), 0, 0));
+        fvsyms.insert(Symbol("exit", TY_FUNC, pos(), TY_BAD, 0));
 	add(I_ENDPROG);
 
 	// Patch up the JMP to the beginning of the program proper

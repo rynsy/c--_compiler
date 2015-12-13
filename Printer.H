@@ -32,6 +32,7 @@ void render(char* s);
   void visitProgram(Program *p); /* abstract class */
   void visitProg(Prog *p);
   void visitFunction(Function *p); /* abstract class */
+  void visitGlobal(Global *p);
   void visitFun(Fun *p);
   void visitDecl(Decl *p); /* abstract class */
   void visitDec(Dec *p);
@@ -143,6 +144,7 @@ class ShowAbsyn : public Visitor
   void visitProgram(Program *p); /* abstract class */
   void visitProg(Prog *p);
   void visitFunction(Function *p); /* abstract class */
+  void visitGlobal(Global *p);
   void visitFun(Fun *p);
   void visitDecl(Decl *p); /* abstract class */
   void visitDec(Dec *p);
