@@ -147,7 +147,7 @@ bool SymbolTable::exists(const string &str) const
 	return false;
 }
 
-static bool is_data_type(type_t ty)
+bool is_data_type(type_t ty)
 {
 	return ty == TY_INT || ty == TY_DOUBLE;
 }
@@ -168,7 +168,7 @@ int SymbolTable::levelof(const string &str) const
 	return -1;
 }
 
-static const char *type_name(type_t ty)
+const char* type_name(type_t ty)
 {
 	switch (ty) {
 	case TY_BAD: return "ERROR";

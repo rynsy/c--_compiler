@@ -6,6 +6,14 @@
 #include <stdexcept>
 #include <string>
 
+class TypeError : public std::logic_error
+{
+public:
+    TypeError(const std::string &name)
+        : logic_error("Mix-matched types for Exp: \"" + name + "\"")
+    {}
+};
+
 class UnknownVar : public std::logic_error
 {
 public:

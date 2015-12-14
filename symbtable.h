@@ -24,6 +24,9 @@ enum type_t {
 	TY_FUNC
 };
 
+bool is_data_type(type_t ty);
+const char* type_name(type_t ty);
+
 // The values in a SymbolTable; accessed by string keys.
 class Symbol {
     public:
@@ -49,7 +52,7 @@ class Symbol {
 
         virtual type_t &arg_type();
         virtual type_t arg_type() const;
-	
+        
         // Comparison operators
 	virtual bool operator<(const Symbol &s) const;
 	virtual bool operator==(const Symbol &s) const;
@@ -60,7 +63,7 @@ class Symbol {
 	int addr;
         type_t rtype;  //is there a return value?
         int argnum; //number of arguments if this is a function
-        type_t argtype;  //is there a return value?
+        type_t argtype;  //the argtype TODO adapt when you support multiple args
 };
 
 
@@ -82,7 +85,7 @@ class SymbolTable {
 	bool exists(const std::string &s) const;
 
 	int levelof(const std::string &s) const;
-
+        
 	// Number of variables in the top symbol table.
 	int numvars() const;
 

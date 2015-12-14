@@ -235,6 +235,8 @@ void CodeGen::visitEAss(EAss *eass)
     if (!symbols.exists(currid))
         throw UnknownVar(currid);
 
+    type_t lhs = symbols[currid]->type();
+
     // Compute the address.
     code.add(I_VARIABLE);
     code.add(symbols.levelof(currid));
@@ -245,55 +247,136 @@ void CodeGen::visitEAss(EAss *eass)
 
     // Generate code for the value of the RHS.
     eass->exp_->accept(this);
+    type_t rhs = currtype;
 
-    // Store the value at the computed address.
-    code.add(I_ASSIGN);
-    code.add(1);
-
-    // Dereference the address and return its value.
-    code.add(I_VALUE);
+    if(
+        is_data_type(lhs) &&
+        is_data_type(rhs) &&
+        (type_name(lhs) == type_name(rhs))
+      )
+    {
+        // Store the value at the computed address.
+        code.add(I_ASSIGN);
+        code.add(1);
+        // Dereference the address and return its value.
+        code.add(I_VALUE);
+    }   else {
+        throw TypeError("=");        
+    }
 }
 
 void CodeGen::visitELt(ELt *elt)
 {
     elt->exp_1->accept(this);
+    type_t lhs = currtype;
     elt->exp_2->accept(this);
-    code.add(I_LESS);
+    type_t rhs = currtype;
+
+    if(
+        is_data_type(lhs) &&
+        is_data_type(rhs) &&
+        (type_name(lhs) == type_name(rhs))
+      )
+    {
+        code.add(I_LESS);
+    }   else {
+        throw TypeError("<");        
+    }
 }
 
 void CodeGen::visitEGt(EGt *egt)
 {
     egt->exp_1->accept(this);
+    type_t lhs = currtype;
     egt->exp_2->accept(this);
-    code.add(I_GREATER);
+    type_t rhs = currtype;
+
+    if(
+        is_data_type(lhs) &&
+        is_data_type(rhs) &&
+        (type_name(lhs) == type_name(rhs))
+      )
+    {
+        code.add(I_GREATER);
+    }   else {
+        throw TypeError(">");        
+    }
 }
 
 void CodeGen::visitEEq(EEq *eeq)
 {
     eeq->exp_1->accept(this);
+    type_t lhs = currtype;
     eeq->exp_2->accept(this);
-    code.add(I_EQUAL);
+    type_t rhs = currtype;
+    
+    if(
+        is_data_type(lhs) &&
+        is_data_type(rhs) &&
+        (type_name(lhs) == type_name(rhs))
+      )
+    {
+        code.add(I_EQUAL);
+    }   else {
+        throw TypeError("==");        
+    }
 }
 
 void CodeGen::visitEAdd(EAdd *eadd)
 {
     eadd->exp_1->accept(this);
+    type_t lhs = currtype;
     eadd->exp_2->accept(this);
-    code.add(I_ADD);
+    type_t rhs = currtype;
+    
+    if(
+        is_data_type(lhs) &&
+        is_data_type(rhs) &&
+        (type_name(lhs) == type_name(rhs))
+      )
+    {
+        code.add(I_ADD);
+    }   else {
+        throw TypeError("+");        
+    }
 }
 
 void CodeGen::visitESub(ESub *esub)
 {
     esub->exp_1->accept(this);
+    type_t lhs = currtype;
     esub->exp_2->accept(this);
-    code.add(I_SUBTRACT);
+    type_t rhs = currtype;
+
+    if(
+        is_data_type(lhs) &&
+        is_data_type(rhs) &&
+        (type_name(lhs) == type_name(rhs))
+      )
+    {
+        code.add(I_SUBTRACT);
+    }   else {
+        throw TypeError("-");
+    }
 }
 
 void CodeGen::visitEMul(EMul *emul)
 {
     emul->exp_1->accept(this);
+    type_t lhs = currtype;
     emul->exp_2->accept(this);
-    code.add(I_MULTIPLY);
+    type_t rhs = currtype;
+
+    if(
+        is_data_type(lhs) &&
+        is_data_type(rhs) &&
+        (type_name(lhs) == type_name(rhs))
+      )
+    {
+        code.add(I_MULTIPLY);
+    }   else {
+        throw TypeError("*");
+    }
 }
 
 void CodeGen::visitCall(Call *call)
@@ -332,6 +415,7 @@ void CodeGen::visitEVar(EVar *evar)
     visitIdent(evar->ident_); // sets currid
     if (!symbols.exists(currid))
         throw UnknownVar(currid);
+    currtype = symbols[currid]->type();
 
     // Compute the address.
     code.add(I_VARIABLE);
@@ -350,11 +434,13 @@ void CodeGen::visitEStr(EStr *estr)
 
 void CodeGen::visitEInt(EInt *eint)
 {
+    currtype = TY_INT;
     visitInteger(eint->integer_);
 }
 
 void CodeGen::visitEDouble(EDouble *edouble)
 {
+    currtype = TY_DOUBLE;
     visitDouble(edouble->double_);
 }
 
@@ -442,7 +528,8 @@ void CodeGen::visitChar(Char x)
 
 void CodeGen::visitDouble(Double x)
 {
-    throw Unimplemented("doubles are unimplemented");
+    code.add(R_CONSTANT);
+    code.add(x);
 }
 
 void CodeGen::visitString(String x)

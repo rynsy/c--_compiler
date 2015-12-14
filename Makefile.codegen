@@ -7,7 +7,7 @@ FLEX_OPTS = -Pcmm
 BISON = bison
 BISON_OPTS = -t -pcmm
 
-OBJS = Absyn.o Lexer.o Parser.o codegen.o symbtable.o pstcode.o
+OBJS = Absyn.o Lexer.o Parser.o symbtable.o pstcode.o codegen.o
 
 .PHONY: clean distclean pstack
 
