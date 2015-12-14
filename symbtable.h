@@ -5,6 +5,7 @@
 #include <list>
 #include <utility>
 #include <iostream>
+#include <vector>
 /* If USE_HASH_MAP is defined, we will use the SGI hash_map extension.
  * Otherwise, we will use the STL map container, which is generally not
  * implemented as a hash table (in SGI's implementation, it uses a red-
@@ -24,6 +25,7 @@ enum type_t {
 	TY_FUNC
 };
 
+typedef std::vector<type_t> type_l; //for multiple function arg support
 bool is_data_type(type_t ty);
 const char* type_name(type_t ty);
 
@@ -31,7 +33,7 @@ const char* type_name(type_t ty);
 class Symbol {
     public:
 	Symbol();
-	Symbol(const std::string &name, type_t type = TY_BAD, int addr = -1, type_t rtype = TY_BAD, int argnum = 0, type_t argtype = TY_BAD);
+        Symbol(const std::string &name, type_t type = TY_BAD, int addr = -1, type_t rtype = TY_BAD, int argnum = 0, type_t argtype = TY_BAD);
 
 	// Accessors
 	virtual const std::string &name() const;
@@ -63,7 +65,7 @@ class Symbol {
 	int addr;
         type_t rtype;  //is there a return value?
         int argnum; //number of arguments if this is a function
-        type_t argtype;  //the argtype TODO adapt when you support multiple args
+	type_t argtype;
 };
 
 

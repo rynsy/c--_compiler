@@ -1,0 +1,12 @@
+int million(int n)
+{
+  return n * 1000000;
+}
+
+int main () 
+{
+    double x;
+    x = 2.0;
+    million(x);    
+    return 0;
+}

@@ -38,11 +38,19 @@ public:
     {}
 };
 
-class BadCall : public std::logic_error
+class BadCallArgnum : public std::logic_error
 {
 public:
-    BadCall(const std::string &name)
+    BadCallArgnum(const std::string &name)
         : logic_error("Wrong number of args for: \"" + name + "\"")
+    {}
+};
+
+class BadCallArgtype : public std::logic_error
+{
+public:
+    BadCallArgtype(const std::string &name)
+        : logic_error("Wrong type of args for: \"" + name + "\"")
     {}
 };
 

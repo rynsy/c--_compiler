@@ -47,7 +47,7 @@ void CodeGen::visitFun(Fun *fun)
     if (symbols.exists(fun_name))
         throw Redeclared(fun_name);
     
-    symbols.insert(Symbol(fun_name, TY_FUNC, code.pos(), currtype, 0));
+    symbols.insert(Symbol(fun_name, TY_FUNC, code.pos(), currtype));
 
     code.add(I_PROC);
     int patchloc = code.pos(); // to be filled with number of local variables.
@@ -59,6 +59,7 @@ void CodeGen::visitFun(Fun *fun)
     fun->listdecl_->accept(this);
     
     symbols[fun_name]->argn() = funargs;
+    symbols[fun_name]->arg_type() = currtype;     //fixme if you change grammar to support multiple parameters
 
     int startvar = symbols.numvars();
 
@@ -385,13 +386,16 @@ void CodeGen::visitCall(Call *call)
     if (!symbols.exists(currid))
         throw UnknownFunc(currid);
 
+    Ident fun_name = currid;
     int level = symbols.levelof(currid);
     int addr = symbols[currid]->address();
     int argn = symbols[currid]->argn();
     int totalvar = call->listexp_->size();
+    type_t rtype = symbols[currid]->return_type();
+    type_t argtype = symbols[currid]->arg_type();
 
     if( totalvar != argn ) 
-        throw BadCall(currid);
+        throw BadCallArgnum(fun_name);
     
     // Make room on the stack for the return value.  Assumes all functions
     // will return some value.
@@ -402,11 +406,19 @@ void CodeGen::visitCall(Call *call)
     // stack when executed).
 
     call->listexp_->accept(this);
+    if( argn > 0 ) {
+        if( fun_name != "puts" && fun_name != "putn") {
+            if( currtype != argtype ) {
+                throw BadCallArgtype(fun_name);     
+            }
+        }
+    }
 
     code.add(I_CALL);
     code.add(level);
     code.add(addr);
-    
+   
+    currtype = rtype; 
     // The result, if any, is left on the stack.
 }
 
@@ -485,7 +497,6 @@ void CodeGen::visitListDecl(ListDecl* listdecl)
         // The first argument (currarg = 0) has address -nargs; the last
         // (currarg = nargs - 1) has address -1.
         symbols[currid]->address() = currarg - funargs;
-        symbols[currid]->arg_type() = currtype;     //fixme if you change grammar to support multiple parameters
     }
 }
 
@@ -507,7 +518,7 @@ void CodeGen::visitListIdent(ListIdent* listident)
 void CodeGen::visitListExp(ListExp* listexp)
 {
     // Evaluate each expression in turn, leaving all the values on the stack.
-    for (ListExp::iterator i = listexp->begin() ; i != listexp->end() ; ++i)
+    for (ListExp::iterator i = listexp->begin() ; i != listexp->end(); ++i)
     {
         (*i)->accept(this);
     }
