@@ -1,14 +1,27 @@
+Name: Ryan Lindsey
+Project: Milestone D, final project
+Professor: Dr. Jaromczyk
+
 USAGE:
   # Build both the compiler and pstack:
-  make
+  make -f Makefile.codegen
 
   # Compile fib.cmm, producing fib.apm:
-  ./compiler fib.cmm fib.apm
+  ./cmm2pstack fib.cmm fib.apm
 
   # Disassemble fib.apm:
   ./pstack/apd fib
   # Execute fib.apm:
   ./pstack/api fib
+
+  # Run provided tests:
+    ./test-cmm2pstack.sh
+  # Run my tests:
+    ./mytest-cmm2pstack.sh
+
+  # To tear everything down, run bnfc and Makefile.codegen
+  # followed by both sets of testing scripts:
+    ./doit
 
 BUILT-IN-FUNCTIONS:
   The cmm standard library contains three functions:
@@ -22,4 +35,13 @@ Note that function calls are not checked for number and type of
 arguments: giving the wrong number is likely to smash the stack.
 All functions return a value.
 
-Functions with multiple arguments are not parsed correctly.
+Functions with multiple arguments are not parsed correctly, to type-checking
+and function calls are handled assuming a function can have at most one 
+argument. 
+
+Added tests are stored in MyTests. They're mostly designed to be bad
+examples, and check for appropriate error messages.
+
+C-- makes no attempt to coalesce integers into doubles, or vice-versa. 
+Types are checked by expression, and all elements of an expression are
+required to be of the same type.  
